@@ -102,5 +102,5 @@
         }
     },
     "cph.language.cpp.Command": "/Users/l7/programs/codeflare/.cph/scripts/cph-g++-fast.py",
-    "cph.language.cpp.Args": "-std=gnu++23 -O0 -pipe -mcpu=native -mtune=native"
+    "cph.language.cpp.Args": "-std=gnu++23 -O0 -pipe -mcpu=native -mtune=native -Werror=return-type"
 }
