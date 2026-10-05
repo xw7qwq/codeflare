@@ -26,6 +26,8 @@ git diff --check
 
 The `Archive` workflow runs offline tests and a read-only integrity audit on every PR and push to `main` or `docs/project-guide`. Its stable check name is `archive`. The audit checks provenance receipts, hashes, byte counts, and encodings of imported source files. It does not run algorithms or establish an AC verdict.
 
+The `Site snapshots` workflow validates the website and current `main` snapshots on PRs targeting `main`. Pushes to `main`, daily scheduled runs, and manual runs also publish the two generated `gh-pages/data/` snapshots and verify the Pages build and public data. Like the documentation publisher, this automation updates generated output directly; manual website changes still use PRs targeting `gh-pages`.
+
 Compile individual problem changes separately and provide the original problem link, reproduction input, and expected output. Include a minimal invocation and boundary checks for template changes. Each branch's README describes additional documentation and website checks. Preserve source paths and verified provenance; successful compilation or file existence is not evidence of an accepted submission.
 
 ## Commit conventions
