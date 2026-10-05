@@ -6,11 +6,13 @@
 
 | 分支 | 职责 | 更新后影响 |
 | --- | --- | --- |
-| `main` | OJ 源码与练习档案 | 网页在线读取文件树、最近提交和源码；不自动重生成 JSON |
+| `main` | OJ source archive and snapshot workflow | Pushes regenerate and publish both JSON snapshots; the browser still checks the online file tree, recent commits, and source independently |
 | `gh-pages` | 根题库、静态快照、生成的 `docs/` | GitHub Pages 发布来源，目录为 `/(root)` |
 | `docs/project-guide` | 文档源、API Schema 与发布校验 | 推送后独立发布至 `gh-pages/docs/`；无需向 main 推送 |
 
 不要把 main 或文档分支整体合入 gh-pages。网站源码修改基于 gh-pages；文档修改基于 docs/project-guide。文档工作流只更新生成的 docs 目录，保留根题库。
+
+The `Site snapshots` workflow on main generates `data/site-data.json` and `data/recent-commits.json` from the current `origin/main` after main pushes, daily schedules, and manual **Run workflow** runs. PRs targeting main validate the current main snapshots and website without publishing. The generation job uploads both verified JSON files; the publishing job shares the `codeflare-docs-pages` lock with documentation publishing, commits only those two files, explicitly requests a Pages build, and verifies the public JSON. Both publishers use `queue: max` to preserve pending jobs; superseded main snapshots skip publication.
 
 ## 网站文件
 
@@ -28,6 +30,7 @@ reader.css                    全视口阅读布局与高亮适配
 data/site-data.json            题库快照，保留旧统计字段
 data/recent-commits.json       最近六次提交快照
 scripts/generate-data.mjs      从 Git 文件树和历史生成两份快照
+scripts/publish-data.mjs       Publish only the two snapshots and verify Pages and public JSON
 scripts/check-reader.mjs       非浏览器阅读页与题库回归测试
 scripts/check-theme.mjs        样式共享、资源引用与深浅色对比度校验
 vendor/                       本地 Highlight.js、主题及许可证
@@ -67,7 +70,7 @@ python3 -m http.server 4173 --bind 127.0.0.1
 
 显示日期使用浏览器本地时区。最近提交的时间是 `commit.committer.date`，不是快照生成时间，也不是作者日期。提交说明作为纯文本插入页面。
 
-在线文件树不包含逐文件提交时间，已有文件继续使用快照日期。新增文件没有快照记录时显示“时间未知”；修改后的文件日期也需重生成快照。因此状态只说“代码列表已检查”，不宣称所有数据实时同步。源码正文需联网单独读取。
+The online file tree does not contain per-file commit times, so existing files keep their snapshot dates. Before automatic snapshot publication finishes, newly added files with no snapshot record show an unknown time, and changed files retain their previous snapshot dates. The status therefore reports that the code list was checked, without claiming that every field is current. Source content is fetched separately over the network.
 
 ## 路径解析与完整性
 
@@ -117,7 +120,7 @@ curl --fail --head http://127.0.0.1:4173/
 curl --fail --head http://127.0.0.1:4173/data/recent-commits.json
 ```
 
-两份 JSON 均应通过[API 校验](api/standards.md)。审阅网站变更后推送 gh-pages，保留 docs 目录。修改文档及契约则推送 docs/project-guide；若增加数据端点，先发布数据文件，再运行依赖真实远端快照的文档校验。
+Both JSON files must pass [API validation](api/standards.md). Publish website source changes through PRs targeting gh-pages, preserving the docs directory. Snapshots normally need no manual commit: `Site snapshots` generates them after main pushes, and can be rerun manually from main when needed. Publish documentation and contract changes through PRs targeting docs/project-guide. When adding a data endpoint, publish its data files before running documentation checks that depend on the remote snapshots.
 
 ```bash
 gh api repos/xw7qwq/codeflare/pages --jq '{status,source,https_enforced,html_url}'
@@ -132,7 +135,7 @@ curl --fail --head https://codeflare.lucius7.dev/
 | 现象 | 处理 |
 | --- | --- |
 | 新题目未出现 | 检查 main 路径、排除规则、树接口是否失败或截断 |
-| 文件日期未知或落后 | 从最新 origin/main 重生成两份快照并发布 |
+| File dates are unknown or stale | Inspect main's `Site snapshots` generation, publication, Pages, and public JSON checks; fix a failed run and rerun it manually from main |
 | 最近提交保持旧数据 | 在线接口可能超时或限流，页面会注明使用部署快照；通过“全部提交”核对 GitHub |
 | 代码已显示但仍有加载文字 | 核对 code.html、reader.js、reader.css、theme.css 同次发布，以及 hidden 样式 |
 | 代码加载失败 | 检查 Contents、jsDelivr、raw 来源；打开 GitHub 源码链接 |
