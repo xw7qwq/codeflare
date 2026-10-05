@@ -81,6 +81,8 @@ Choose the branch that owns the content before making changes:
 
 The website is **[codeflare.lucius7.dev](https://codeflare.lucius7.dev)**. GitHub Pages publishes from the root of `gh-pages`. Its `docs/` directory is generated output; edit documentation on `docs/project-guide`. Each branch's README describes local previews, builds, and validation.
 
+The `Site snapshots` workflow refreshes `gh-pages/data/site-data.json` and `gh-pages/data/recent-commits.json` after each push to `main`, once daily, or through **Run workflow**. It validates the generated snapshots and website, publishes only those two files, explicitly requests a Pages build, and verifies the public JSON. PR runs validate without publishing. The snapshot and documentation publishers share a lock so their outputs are preserved.
+
 ## Contributing and feedback
 
 Use [issues](https://github.com/xw7qwq/codeflare/issues) or pull requests to report source problems, directory mapping errors, or documentation improvements.

@@ -1,0 +1,89 @@
+name: Site snapshots
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 2 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  website:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Check out website and complete source history
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: gh-pages
+          path: website
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - name: Generate current main snapshots
+        working-directory: website
+        run: node scripts/generate-data.mjs origin/main
+      - name: Validate website and publication guards
+        working-directory: website
+        run: |
+          node --check app.js
+          node --check archive.js
+          node --check reader.js
+          node --check scripts/generate-data.mjs
+          node --check scripts/publish-data.mjs
+          node scripts/check-reader.mjs
+          node scripts/check-theme.mjs
+          node --test scripts/tests/*.test.mjs
+          git diff --check
+      - name: Upload verified snapshots
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: site-data
+          path: |
+            website/data/site-data.json
+            website/data/recent-commits.json
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: website
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      pages: write
+    # Share the docs publisher's lock so both jobs preserve each other's output.
+    concurrency:
+      group: codeflare-docs-pages
+      cancel-in-progress: false
+      queue: max
+    steps:
+      - name: Check out Pages branch and complete source history
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: gh-pages
+          path: website
+          fetch-depth: 0
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - name: Download verified snapshots
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: site-data
+          path: website/data
+      - name: Publish snapshots and verify live Pages data
+        working-directory: website
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/publish-data.mjs
