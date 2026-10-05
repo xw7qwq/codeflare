@@ -47,13 +47,14 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/docs/project-guide'
     needs: documentation
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 15
     permissions:
       contents: write
       pages: write
     concurrency:
       group: codeflare-docs-pages
       cancel-in-progress: false
+      queue: max
     steps:
       - name: Check out publication script
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6

@@ -29,7 +29,7 @@ python3 scripts/archive_verify.py
 
 The `archive` check verifies tool behavior and source integrity where provenance receipts exist. It does not execute algorithms or establish an AC verdict. Archive tools read and write local files without committing or pushing Git. New sources enter `main` through a temporary branch such as `sync/` and a PR, preserving existing source files. See the [archive tool guide](scripts/README.md) for operations and receipt formats.
 
-All manual changes require PRs. The documentation publishing workflow writes directly to `gh-pages/docs/`, a generated directory that must not be edited manually. Keep the full `gh-pages` branch separate from other branches.
+All manual changes require PRs. The documentation publishing workflow writes directly to the generated `gh-pages/docs/` directory. The `Site snapshots` workflow on `main` writes only the generated `gh-pages/data/site-data.json` and `gh-pages/data/recent-commits.json` after main pushes, daily, or on manual runs; PR runs only validate. Both publishers share a lock and preserve pending jobs with `queue: max`. Do not edit generated output manually. Keep the full `gh-pages` branch separate from other branches.
 
 ## Commit messages
 
