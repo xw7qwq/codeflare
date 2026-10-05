@@ -52,6 +52,10 @@ python3 -m http.server 4173 --bind 127.0.0.1
 
 ## 维护与校验
 
+The **Site snapshots** workflow on `main` refreshes both JSON snapshots after source changes and once per day, and can also be run manually. It fetches the complete `main` history, generates and checks the snapshots, then publishes only `data/site-data.json` and `data/recent-commits.json` to `gh-pages`. Builds superseded by a newer `main` commit are skipped. Data and documentation publication share the `codeflare-docs-pages` concurrency group with `queue: max` to retain pending publications.
+
+The publisher verifies the repository, checkout branch, Pages source, and custom domain. After pushing with `GITHUB_TOKEN`, it explicitly requests a Pages build and waits for both snapshot blobs and their public JSON contents to match. A later documentation commit with the same snapshots is accepted; an unrelated build or stale public snapshot does not count as a successful deployment. Any push, build, or deployment verification failure fails the workflow. Regression checks run with `node --test scripts/tests/*.test.mjs`.
+
 刷新快照前获取完整的主分支历史。以下命令在本分支根目录运行，会覆盖两份 `data/` JSON 文件：
 
 ```sh
@@ -68,6 +72,8 @@ node --check app.js
 node --check archive.js
 node --check reader.js
 node --check scripts/generate-data.mjs
+node --check scripts/publish-data.mjs
+node --test scripts/tests/*.test.mjs
 node scripts/check-reader.mjs
 node scripts/check-theme.mjs
 git diff --check
