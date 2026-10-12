@@ -2,6 +2,10 @@
 
 本工作区使用 `.cph/scripts/cph-g++-fast.py`，实际编译器仍为 Homebrew GCC 16，语言标准 GNU++23。源码继续直接写 `#include <bits/stdc++.h>`，包含完整的 GCC 万能头，不需要修改提交代码。
 
+本机 GCC 16.2 的 `bits/stdc++.h` 已按个人使用习惯补入 `<cassert>`，源码和 CPH 新题模板都只需写 `#include <bits/stdc++.h>`，即可直接使用 `assert`。加速器检查头文件依赖，修改后会自动重建相应的预编译头，继续保留原有缓存加速和 `NDEBUG` 行为。这是本机标准库头文件的兼容修改；Homebrew 升级或重装 GCC 后可能被覆盖，届时需要重新补入。其他机器或在线评测是否包含 `<cassert>` 仍取决于其编译器版本。
+
+全局入口 `~/.local/bin/cph-g++-fast` 转发到本工作区的同一加速脚本，全局 CPH 默认也为 O0。若工作区脚本暂不可用，入口会回退到原始 GCC。
+
 - CPH、全局 C++ 配置和两个 VS Code 编译任务均启用 `-Werror=return-type`：非 void 函数或 lambda 存在缺少返回值的路径时，直接报编译错误并标出源码行。macOS ARM 上此类代码可能执行到编译器生成的 `brk` 指令，表现为 `SIGTRAP`；重新编译不能修复源码中的未定义行为。
 - CPH 默认 `-O0`：优先缩短改代码后的编译等待，程序运行可能比 `-O2` 慢。不要用该模式判断极限数据的运行时间。
 - `Cmd+Shift+B`：默认最快编译任务，参数与 CPH 一致。
