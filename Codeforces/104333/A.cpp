@@ -99,15 +99,17 @@ void solve() {
     }
 
     Z ans = 0;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            ans += a[i] ^ b[j];
+    for (int k = 0; k < 17; k++) {
+        Z ca = 0, cb = 0;
+        for (int i = 0; i < n; i++) {
+            ca += a[i] >> k & 1;
+            cb += b[i] >> k & 1;
         }
+        ans += Z(1LL << k) * Z(ca * (n - cb) + (n - ca) * cb);
     }
     for (int x = n - 1; x >= 1; x--) {
         ans *= x;
     }
-
     std::cout << ans << "\n";
 }
 
