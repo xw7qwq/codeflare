@@ -6,7 +6,22 @@ using i64 = long long;
 using u64 = unsigned long long;
 
 void solve() {
-    
+    int s, n;
+    std::cin >> s >> n;
+
+    std::vector<int> a(n);
+    for (int i = 0; i < n; i++) {
+        int x, y;
+        std::cin >> x >> y;
+
+        if (s > x) {
+            s += y;
+        } else {
+            std::cout << "NO\n";
+            return;
+        }
+    }
+    std::cout << "YES\n";
 }
 
 signed main() {
