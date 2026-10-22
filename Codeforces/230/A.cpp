@@ -9,11 +9,14 @@ void solve() {
     int s, n;
     std::cin >> s >> n;
 
-    std::vector<int> a(n);
+    std::vector<std::pair<int, int>> d(n);
     for (int i = 0; i < n; i++) {
-        int x, y;
-        std::cin >> x >> y;
+        std::cin >> d[i].first >> d[i].second;
+    }
+    std::sort(d.begin(), d.end());
 
+    for (int i = 0; i < n; i++) {
+        auto [x, y] = d[i];
         if (s > x) {
             s += y;
         } else {
