@@ -2,7 +2,7 @@
 const Archive = (() => {
 const REPOSITORY = {
   owner: "xw7qwq",
-  name: "codeflare",
+  name: "solutions",
   branch: "main",
 };
 

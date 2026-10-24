@@ -8,7 +8,7 @@ import { changedPaths, publishData, snapshotPaths, validateSnapshots } from "../
 
 const sourceCommit = "a".repeat(40);
 const newerCommit = "b".repeat(40);
-const repository = { owner: "xw7qwq", name: "codeflare", branch: "main" };
+const repository = { owner: "xw7qwq", name: "solutions", branch: "main" };
 function snapshots(generatedAt = "2026-10-05T08:00:00.000Z") {
   const common = { repository, generatedAt, sourceRef: "origin/main" };
   return {
@@ -26,7 +26,7 @@ async function fixture(t) {
   realGit("init", "-b", "gh-pages");
   realGit("config", "user.name", "Test");
   realGit("config", "user.email", "test@example.invalid");
-  realGit("remote", "add", "origin", "https://github.com/xw7qwq/codeflare.git");
+  realGit("remote", "add", "origin", "https://github.com/xw7qwq/solutions.git");
   await mkdir(join(checkout, "data"));
   await writeFile(join(checkout, "CNAME"), "codeflare.lucius7.dev\n");
   const previous = snapshots("2026-10-04T08:00:00.000Z");

@@ -8,7 +8,7 @@ import { dirname, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
 
-const repository = "xw7qwq/codeflare";
+const repository = "xw7qwq/solutions";
 const domain = "codeflare.lucius7.dev";
 export const snapshotPaths = ["data/site-data.json", "data/recent-commits.json"];
 
@@ -29,7 +29,7 @@ export function changedPaths(status) {
 export function validateSnapshots(contents) {
   const [site, recent] = snapshotPaths.map((name) => JSON.parse(contents[name]));
   for (const snapshot of [site, recent]) {
-    assert.deepEqual(snapshot.repository, { owner: "xw7qwq", name: "codeflare", branch: "main" },
+    assert.deepEqual(snapshot.repository, { owner: "xw7qwq", name: "solutions", branch: "main" },
       "unexpected snapshot repository");
   }
   assert.equal(site.generatedAt, recent.generatedAt, "snapshots have different generation times");
@@ -73,7 +73,7 @@ export async function publishData(options = {}) {
   const publicAttempts = options.publicAttempts ?? 18;
 
   assert.equal(git("branch", "--show-current"), "gh-pages", "unexpected checkout branch");
-  assert(/(?:github\.com[:/])xw7qwq\/codeflare(?:\.git)?$/.test(git("remote", "get-url", "origin")),
+  assert(/(?:github\.com[:/])xw7qwq\/solutions(?:\.git)?$/.test(git("remote", "get-url", "origin")),
     "unexpected remote");
   const dirty = changedPaths(git("status", "--porcelain=v1", "-z"));
   assert(dirty.every((name) => snapshotPaths.includes(name)),

@@ -12,7 +12,7 @@ const supportedExtensions = new Set(["cpp", "cc", "cxx", "c", "py", "java", "rs"
 const ignoredRoots = new Set(["Templates", ".cph", ".vscode", ".github", "assets", "data", "scripts"]);
 const repository = {
   owner: "xw7qwq",
-  name: "codeflare",
+  name: "solutions",
   branch: "main",
 };
 
