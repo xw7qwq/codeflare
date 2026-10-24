@@ -1,6 +1,6 @@
 # Contributing
 
-Read the [organization contribution guide](https://github.com/xw7qwq/.github/blob/main/CONTRIBUTING.md), then follow this repository's branch responsibilities and validation requirements. Detailed [code and archive conventions](https://github.com/xw7qwq/codeflare/blob/docs/project-guide/docs/conventions.md) and the [maintenance workflow](https://github.com/xw7qwq/codeflare/blob/docs/project-guide/docs/maintenance.md) live on the documentation source branch.
+Read the [organization contribution guide](https://github.com/xw7qwq/.github/blob/main/CONTRIBUTING.md), then follow this repository's branch responsibilities and validation requirements. Detailed [code and archive conventions](https://github.com/xw7qwq/solutions/blob/docs/project-guide/docs/conventions.md) and the [maintenance workflow](https://github.com/xw7qwq/solutions/blob/docs/project-guide/docs/maintenance.md) live on the documentation source branch.
 
 ## Branches and pull requests
 
@@ -24,7 +24,7 @@ python3 scripts/archive_verify.py
 git diff --check
 ```
 
-The `Archive` workflow runs offline tests and a read-only integrity audit on every PR and push to `main` or `docs/project-guide`. Its stable check name is `archive`. The audit checks provenance receipts, hashes, byte counts, and encodings of imported source files. It does not run algorithms or establish an AC verdict.
+The `Archive` workflow runs offline tests and a read-only integrity audit on every PR and push to `main` or `docs/project-guide`. Its stable required check name is `check`. The audit checks provenance receipts, hashes, byte counts, and encodings of imported source files. It does not run algorithms or establish an AC verdict.
 
 The `Site snapshots` workflow validates the website and current `main` snapshots on PRs targeting `main`. Pushes to `main`, daily scheduled runs, and manual runs also publish the two generated `gh-pages/data/` snapshots and verify the Pages build and public data. Like the documentation publisher, this automation updates generated output directly; manual website changes still use PRs targeting `gh-pages`.
 
