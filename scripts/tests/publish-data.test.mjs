@@ -186,6 +186,21 @@ test("a failed build containing the published snapshots fails publication", asyn
   await assert.rejects(publishData(f.options), /Pages build failed/);
 });
 
+test("a replacement build can succeed after a matching build reports an error", async (t) => {
+  const f = await fixture(t);
+  const api = f.options.api;
+  let polls = 0;
+  f.options.api = (endpoint, ...args) => {
+    if (endpoint.endsWith("/pages/builds/latest") && ++polls === 1) {
+      return { status: "errored", commit: f.realGit("rev-parse", "HEAD"), error: { message: "Page build failed." } };
+    }
+    return api(endpoint, ...args);
+  };
+  const result = await publishData(f.options);
+  assert.equal(result.status, "published");
+  assert.equal(polls, 2);
+});
+
 test("a concurrent docs commit counts as deployed when both snapshot blobs match", async (t) => {
   const f = await fixture(t);
   const api = f.options.api;

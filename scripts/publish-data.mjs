@@ -117,9 +117,10 @@ export async function publishData(options = {}) {
   const deployed = git("rev-parse", "HEAD");
   const blobs = snapshotBlobs(git, "HEAD");
   log(`Published data from ${metadata.sourceCommit} in Pages commit ${deployed}.`);
-  // GITHUB_TOKEN pushes do not trigger Pages, so explicitly request the build.
+  // Explicitly request a build so bot pushes are covered too.
   await api(`repos/${repository}/pages/builds`, "--method", "POST");
   let built = false;
+  let lastBuildError;
   for (let attempt = 0; attempt < buildAttempts; attempt += 1) {
     await pause(5000);
     const build = await api(`repos/${repository}/pages/builds/latest`);
@@ -128,10 +129,16 @@ export async function publishData(options = {}) {
     git("fetch", "--quiet", "origin", "gh-pages");
     // A subsequent docs publication can change HEAD while retaining both snapshots.
     if (!buildMatchesSnapshots(git, build.commit, blobs)) continue;
-    if (build.status === "errored") throw new Error(`Pages build failed: ${JSON.stringify(build.error)}`);
+    // GitHub can cancel one of two builds for the same commit and report it as
+    // errored while the replacement is still running. Keep the bounded wait.
+    if (build.status === "errored") {
+      lastBuildError = build.error;
+      continue;
+    }
     built = true;
     break;
   }
+  if (!built && lastBuildError) throw new Error(`Pages build failed: ${JSON.stringify(lastBuildError)}`);
   assert(built, "Pages did not complete a build of both published data snapshots");
 
   let fresh = false;
