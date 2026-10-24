@@ -2,7 +2,7 @@
 
 CodeFlare is a competitive programming archive of C++ solutions, templates, and practice, organized by online judge and contest. This branch, `docs/project-guide`, maintains project guides, the static problem browser's API contracts, and the VitePress documentation site.
 
-[Website](https://codeflare.lucius7.dev) · [Online documentation](https://codeflare.lucius7.dev/docs/) · [Source repository](https://github.com/xw7qwq/codeflare) · [Source catalog](docs/catalog.md) · [Contributing](CONTRIBUTING.md)
+[Website](https://codeflare.lucius7.dev) · [Online documentation](https://codeflare.lucius7.dev/docs/) · [Source repository](https://github.com/xw7qwq/solutions) · [Source catalog](docs/catalog.md) · [Contributing](CONTRIBUTING.md)
 
 ## Documentation
 
@@ -22,9 +22,9 @@ The API documentation describes static JSON snapshots and external interfaces us
 
 | Branch | Contents |
 | --- | --- |
-| [`main`](https://github.com/xw7qwq/codeflare/tree/main) | Algorithm source code, templates, and existing development tools |
-| [`docs/project-guide`](https://github.com/xw7qwq/codeflare/tree/docs/project-guide) | This branch: documentation source, API contracts, project conventions, and build checks |
-| [`gh-pages`](https://github.com/xw7qwq/codeflare/tree/gh-pages) | Problem browser, data snapshots, and generated documentation in `docs/` |
+| [`main`](https://github.com/xw7qwq/solutions/tree/main) | Algorithm source code, templates, and existing development tools |
+| [`docs/project-guide`](https://github.com/xw7qwq/solutions/tree/docs/project-guide) | This branch: documentation source, API contracts, project conventions, and build checks |
+| [`gh-pages`](https://github.com/xw7qwq/solutions/tree/gh-pages) | Problem browser, data snapshots, and generated documentation in `docs/` |
 
 Documentation does not need to be merged into `main`. After a documentation PR merges into this branch, the workflow builds the site and updates only `gh-pages/docs/`. The source catalog records the default-branch commit it describes; see [Maintenance](docs/maintenance.md) for refresh instructions.
 
@@ -35,7 +35,7 @@ Documentation does not need to be merged into `main`. After a documentation PR m
 Read the documentation directly on GitHub or in a Markdown reader. The checker requires Git and Python 3.10+, with no third-party Python packages.
 
 ```sh
-git clone --branch docs/project-guide https://github.com/xw7qwq/codeflare.git codeflare-docs
+git clone --branch docs/project-guide https://github.com/xw7qwq/solutions.git codeflare-docs
 cd codeflare-docs
 python3 scripts/docs.py check
 ```
@@ -94,9 +94,9 @@ CodeFlare uses **[codeflare.lucius7.dev](https://codeflare.lucius7.dev)**. Docum
 
 GitHub Pages should publish from the root of `gh-pages`, with `codeflare.lucius7.dev` as its custom domain. The publishing script validates the repository, source branch, and domain, then updates only the managed `docs/` directory, preserving the problem browser and domain configuration.
 
-API collection `2.0.0` uses the new domain and the `xw7qwq/codeflare` repository identity while retaining response field structures. See [Errors and compatibility](docs/api/standards.md) for migration details. The source catalog retains its original commit SHA, timestamp, and counting rules.
+API collection `2.0.0` uses the new domain and the `xw7qwq/solutions` repository identity while retaining response field structures. See [Errors and compatibility](docs/api/standards.md) for migration details. The source catalog retains its original commit SHA, timestamp, and counting rules.
 
-The workflow checks every PR targeting `docs/project-guide` and every push to that branch. Only pushes publish. Verify releases through [Actions](https://github.com/xw7qwq/codeflare/actions), public pages, and `docs/build-info.json`; see [Maintenance](docs/maintenance.md) for details.
+The workflow checks every PR targeting `docs/project-guide` and every push to that branch. Only pushes publish. Verify releases through [Actions](https://github.com/xw7qwq/solutions/actions), public pages, and `docs/build-info.json`; see [Maintenance](docs/maintenance.md) for details.
 
 ## Content and licensing
 

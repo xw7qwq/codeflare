@@ -2,9 +2,9 @@ name: Archive
 
 on:
   push:
-    branches: [main, docs/project-guide]
+    branches: [main]
   pull_request:
-    branches: [main, docs/project-guide]
+    branches: [main]
   workflow_dispatch:
 
 permissions:

@@ -22,7 +22,7 @@ Host: codeflare.lucius7.dev
 {
   "repository": {
     "owner": "xw7qwq",
-    "name": "codeflare",
+    "name": "solutions",
     "branch": "main"
   },
   "generatedAt": "2026-09-08T01:00:00Z",
@@ -32,7 +32,7 @@ Host: codeflare.lucius7.dev
       "sha": "7cca2a682247670b87af2c8bb9755acda9e434e5",
       "subject": "example",
       "committedAt": "2026-09-04T02:54:39Z",
-      "url": "https://github.com/xw7qwq/codeflare/commit/7cca2a682247670b87af2c8bb9755acda9e434e5"
+      "url": "https://github.com/xw7qwq/solutions/commit/7cca2a682247670b87af2c8bb9755acda9e434e5"
     }
   ]
 }

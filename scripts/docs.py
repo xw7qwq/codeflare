@@ -66,7 +66,7 @@ def catalog_text(commit):
     lines = [
         "# 源码目录清单", "", f"<!-- source-commit: {commit} -->", "",
         "> 自动生成：`python3 scripts/docs.py generate --ref origin/main`。不要手工修改本文件。", "",
-        f"来源：[`{commit[:7]}`](https://github.com/xw7qwq/codeflare/commit/{commit})；提交时间：`{stamp}`。", "",
+        f"来源：[`{commit[:7]}`](https://github.com/xw7qwq/solutions/commit/{commit})；提交时间：`{stamp}`。", "",
         "这里统计该提交的 Git 跟踪文件，支持 C/C++、Python、Java、Rust、Go、Kotlin。隐藏工具目录、docs/scripts/vendor/assets/data 不计入算法源码；Templates 和根目录单列。",
         "源码文件数不等于独立题目数、AC 数或网站收录数；没有自动推断题目完成状态。", "",
         "## 总览", "", "| 范围 | 数量 |", "| --- | ---: |",

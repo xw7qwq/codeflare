@@ -15,6 +15,6 @@
     "ajv-formats": "3.0.1",
     "vitepress": "1.6.4"
   },
-  "overrides": { "vite": "6.4.3" },
-  "engines": { "node": ">=22" }
+  "overrides": { "vite": "6.4.5" },
+  "engines": { "node": ">=24" }
 }

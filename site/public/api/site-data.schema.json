@@ -26,7 +26,7 @@
       "required": ["owner", "name", "branch"],
       "properties": {
         "owner": { "type": "string", "const": "xw7qwq", "description": "仓库所有者。" },
-        "name": { "type": "string", "const": "codeflare", "description": "仓库名。" },
+        "name": { "type": "string", "const": "solutions", "description": "仓库名。" },
         "branch": { "type": "string", "const": "main", "description": "源码链接和在线树使用的分支。" }
       }
     },

@@ -51,12 +51,12 @@ export default defineConfig({
     sidebarMenuLabel: '目录',
     returnToTopLabel: '回到顶部',
     darkModeSwitchLabel: '切换深色模式',
-    socialLinks: [{ icon: 'github', link: 'https://github.com/xw7qwq/codeflare/tree/docs/project-guide' }],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/xw7qwq/solutions/tree/docs/project-guide' }],
     editLink: { text: '编辑本页', pattern: ({ relativePath }) => {
       const source = relativePath === 'repository.md' ? 'README.md'
         : relativePath === 'contributing.md' ? 'CONTRIBUTING.md'
         : relativePath === 'handbook.md' ? 'docs/README.md' : `docs/${relativePath}`;
-      return `https://github.com/xw7qwq/codeflare/edit/docs/project-guide/${source}`;
+      return `https://github.com/xw7qwq/solutions/edit/docs/project-guide/${source}`;
     } },
   },
 });
