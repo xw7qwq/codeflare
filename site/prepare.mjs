@@ -7,7 +7,7 @@ const siteRoot = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.dirname(siteRoot);
 const output = path.join(siteRoot, '.content');
 const sourceBranch = 'docs/project-guide';
-const github = 'https://github.com/xw7qwq/codeflare';
+const github = 'https://github.com/xw7qwq/solutions';
 const routes = new Map([
   ['README.md', 'repository.md'],
   ['CONTRIBUTING.md', 'contributing.md'],

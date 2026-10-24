@@ -51,7 +51,7 @@
         },
         "name": {
           "type": "string",
-          "const": "codeflare",
+          "const": "solutions",
           "description": "仓库名。"
         },
         "branch": {
@@ -89,7 +89,7 @@
         "url": {
           "type": "string",
           "format": "uri",
-          "pattern": "^https://github\\.com/xw7qwq/codeflare/commit/[0-9a-f]{40}$",
+          "pattern": "^https://github\\.com/xw7qwq/solutions/commit/[0-9a-f]{40}$",
           "description": "该仓库对应完整 SHA 的 GitHub 提交详情地址。"
         }
       }

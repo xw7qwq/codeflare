@@ -123,8 +123,8 @@ curl --fail --head http://127.0.0.1:4173/data/recent-commits.json
 Both JSON files must pass [API validation](api/standards.md). Publish website source changes through PRs targeting gh-pages, preserving the docs directory. Snapshots normally need no manual commit: `Site snapshots` generates them after main pushes, and can be rerun manually from main when needed. Publish documentation and contract changes through PRs targeting docs/project-guide. When adding a data endpoint, publish its data files before running documentation checks that depend on the remote snapshots.
 
 ```bash
-gh api repos/xw7qwq/codeflare/pages --jq '{status,source,https_enforced,html_url}'
-gh api repos/xw7qwq/codeflare/pages/builds/latest --jq '{status,commit,error}'
+gh api repos/xw7qwq/solutions/pages --jq '{status,source,https_enforced,html_url}'
+gh api repos/xw7qwq/solutions/pages/builds/latest --jq '{status,commit,error}'
 curl --fail --head https://codeflare.lucius7.dev/
 ```
 

@@ -4,7 +4,7 @@
 
 > 自动生成：`python3 scripts/docs.py generate --ref origin/main`。不要手工修改本文件。
 
-来源：[`615fbe9`](https://github.com/xw7qwq/codeflare/commit/615fbe91bf3f90cb35e0c07c9db0b9c762768f60)；提交时间：`2026-09-08T23:45:30+08:00`。
+来源：[`615fbe9`](https://github.com/xw7qwq/solutions/commit/615fbe91bf3f90cb35e0c07c9db0b9c762768f60)；提交时间：`2026-09-08T23:45:30+08:00`。
 
 这里统计该提交的 Git 跟踪文件，支持 C/C++、Python、Java、Rust、Go、Kotlin。隐藏工具目录、docs/scripts/vendor/assets/data 不计入算法源码；Templates 和根目录单列。
 源码文件数不等于独立题目数、AC 数或网站收录数；没有自动推断题目完成状态。

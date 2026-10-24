@@ -10,7 +10,7 @@
 curl --fail --location \
   -H 'Accept: application/vnd.github.raw+json' \
   -H 'X-GitHub-Api-Version: 2022-11-28' \
-  'https://api.github.com/repos/xw7qwq/codeflare/contents/AtCoder/abc231/a.cpp?ref=main'
+  'https://api.github.com/repos/xw7qwq/solutions/contents/AtCoder/abc231/a.cpp?ref=main'
 ```
 
 此请求返回原始文本，不能按默认 JSON / Base64 响应解析。文件路径应逐段 URL 编码，保留 `/` 分隔；源码仅用于阅读，不应在接入时自动执行。
@@ -21,8 +21,8 @@ curl --fail --location \
 
 | 来源 | 请求 | 用途 |
 | --- | --- | --- |
-| GitHub 文件树 | `GET https://api.github.com/repos/xw7qwq/codeflare/git/trees/main?recursive=1` | 在线题目路径；大仓库需检查 `truncated` |
-| GitHub 最近提交 | `GET https://api.github.com/repos/xw7qwq/codeflare/commits?sha=main&per_page=6` | main 最近六次提交；读取 `sha`、`commit.message` 首行、`commit.committer.date` |
+| GitHub 文件树 | `GET https://api.github.com/repos/xw7qwq/solutions/git/trees/main?recursive=1` | 在线题目路径；大仓库需检查 `truncated` |
+| GitHub 最近提交 | `GET https://api.github.com/repos/xw7qwq/solutions/commits?sha=main&per_page=6` | main 最近六次提交；读取 `sha`、`commit.message` 首行、`commit.committer.date` |
 
 [GitHub 官方提交接口](https://docs.github.com/en/rest/commits/commits#list-commits)。两个列表独立加载，快照和在线 JSON 请求均设置 6 秒超时并重新验证缓存；题库拒绝 `truncated: true` 的文件树，防止部分数据覆盖完整快照。
 

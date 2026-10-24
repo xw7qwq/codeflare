@@ -9,7 +9,7 @@ assert(checkoutArg && artifactArg, 'usage: node publish.mjs <gh-pages-checkout> 
 const checkout = path.resolve(checkoutArg);
 const artifact = path.resolve(artifactArg);
 const destination = path.join(checkout, 'docs');
-const repository = 'xw7qwq/codeflare';
+const repository = 'xw7qwq/solutions';
 const git = (...args) => execFileSync('git', args, { cwd: checkout, encoding: 'utf8' }).trim();
 const api = (endpoint, ...args) => JSON.parse(execFileSync('gh', ['api', endpoint, ...args], { encoding: 'utf8' }));
 const metadata = JSON.parse(await readFile(path.join(artifact, 'build-info.json'), 'utf8'));
@@ -27,7 +27,7 @@ requireCurrentSource();
 assert.equal(git('branch', '--show-current'), 'gh-pages');
 assert.equal(git('status', '--porcelain'), '', 'Pages checkout must be clean');
 const remote = git('remote', 'get-url', 'origin');
-assert(/(?:github\.com[:/])xw7qwq\/codeflare(?:\.git)?$/.test(remote), 'unexpected remote');
+assert(/(?:github\.com[:/])xw7qwq\/solutions(?:\.git)?$/.test(remote), 'unexpected remote');
 const settings = api(`repos/${repository}/pages`);
 assert.equal(settings.source.branch, 'gh-pages');
 assert.equal(settings.source.path, '/');

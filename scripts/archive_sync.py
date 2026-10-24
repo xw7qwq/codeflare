@@ -220,7 +220,7 @@ class Client:
         interval = 2.2 if host == 'codeforces.com' else 1.1
         time.sleep(max(0, interval - (time.monotonic() - self.last.get(host, 0))))
         self.last[host] = time.monotonic()
-        request = Request(url, headers={'Accept': 'application/json', 'User-Agent': 'Lucius7-Archive/1.0 (+https://github.com/xw7qwq/codeflare)'})
+        request = Request(url, headers={'Accept': 'application/json', 'User-Agent': 'Lucius7-Archive/1.0 (+https://github.com/xw7qwq/solutions)'})
         try:
             with urlopen(request, timeout=30) as response:
                 if urlparse(response.url).hostname != host:

@@ -24,7 +24,7 @@ Host: codeflare.lucius7.dev
 {
   "repository": {
     "owner": "xw7qwq",
-    "name": "codeflare",
+    "name": "solutions",
     "branch": "main"
   },
   "generatedAt": "2026-09-04T05:48:48.809Z",
@@ -38,8 +38,8 @@ Host: codeflare.lucius7.dev
       "language": "C++",
       "title": "ABC 231 · Problem A",
       "problemUrl": "https://atcoder.jp/contests/abc231/tasks/abc231_a",
-      "githubUrl": "https://github.com/xw7qwq/codeflare/blob/main/AtCoder/abc231/a.cpp",
-      "rawUrl": "https://raw.githubusercontent.com/xw7qwq/codeflare/main/AtCoder/abc231/a.cpp",
+      "githubUrl": "https://github.com/xw7qwq/solutions/blob/main/AtCoder/abc231/a.cpp",
+      "rawUrl": "https://raw.githubusercontent.com/xw7qwq/solutions/main/AtCoder/abc231/a.cpp",
       "submittedAt": "2026-09-02T15:48:58+08:00"
     }
   ],

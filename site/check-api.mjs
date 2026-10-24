@@ -97,7 +97,7 @@ if (recent.commits.length) badRecent.push(
   ['duplicate SHA', (s) => { s.commits = [s.commits[0], structuredClone(s.commits[0])]; }],
   ['short SHA', (s) => { s.commits[0].sha = 'abc1234'; }],
   ['invalid date', (s) => { s.commits[0].committedAt = 'yesterday'; }],
-  ['wrong commit URL', (s) => { s.commits[0].url = 'https://github.com/xw7qwq/codeflare/commit/' + (s.commits[0].sha[0] === '0' ? '1' : '0').repeat(40); }],
+  ['wrong commit URL', (s) => { s.commits[0].url = 'https://github.com/xw7qwq/solutions/commit/' + (s.commits[0].sha[0] === '0' ? '1' : '0').repeat(40); }],
   ['unknown commit field', (s) => { s.commits[0].rating = 1; }],
   ['multiline subject', (s) => { s.commits[0].subject = 'one\ntwo'; }],
 );
