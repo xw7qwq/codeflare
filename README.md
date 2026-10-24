@@ -102,3 +102,7 @@ CodeFlare 使用独立域名 **[codeflare.lucius7.dev](https://codeflare.lucius7
 ## 相关项目
 
 [OJFlare](https://github.com/xw7qwq/oj) 使用独立域名 [ojflare.lucius7.dev](https://ojflare.lucius7.dev)，与 CodeFlare 分别维护和部署。
+
+## Panel entry point
+
+HTML navigation redirects to [https://lucius7.dev/oj/code/](https://lucius7.dev/oj/code/), preserving the query string and fragment for existing reader links. The public JSON snapshots keep their existing URLs and publication workflow. Publish this change only after the panel root domain and owner login are verified.
