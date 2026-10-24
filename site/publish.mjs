@@ -74,14 +74,16 @@ if (changed.length) {
 const deployed = git('rev-parse', 'HEAD');
 const docsTree = git('rev-parse', 'HEAD:docs');
 console.log(`Published docs/ from ${metadata.sourceCommit} in Pages commit ${deployed}.`);
-// GITHUB_TOKEN pushes do not trigger Pages automatically, so request the build explicitly.
+// Request a build explicitly so bot pushes are covered too.
 api(`repos/${repository}/pages/builds`, '--method', 'POST');
 let built = false;
+let lastBuildError;
 for (let attempt = 0; attempt < 48; attempt += 1) {
   await delay(5000);
   const build = api(`repos/${repository}/pages/builds/latest`);
   console.log(`Pages: ${build.status} ${build.commit}`);
-  if (build.commit === deployed && build.status === 'errored') throw new Error(JSON.stringify(build.error));
+  // A cancelled duplicate build can report errored before its replacement succeeds.
+  if (build.commit === deployed && build.status === 'errored') lastBuildError = build.error;
   if (build.status === 'built') {
     git('fetch', '--quiet', 'origin', 'gh-pages');
     let publishedTree;
@@ -89,6 +91,7 @@ for (let attempt = 0; attempt < 48; attempt += 1) {
     if (publishedTree === docsTree) { built = true; break; }
   }
 }
+if (!built && lastBuildError) throw new Error(`Pages build failed: ${JSON.stringify(lastBuildError)}`);
 assert(built, 'Pages did not complete a build of the published docs tree');
 
 const base = 'https://codeflare.lucius7.dev/docs/';
